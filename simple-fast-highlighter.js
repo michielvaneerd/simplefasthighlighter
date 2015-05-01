@@ -11,6 +11,7 @@
         single : "//",
         multi : ["/*", "*/"]
       },
+      validKeywordReg : /[a-zA-Z\-_]/,
       quote : ["\"", "'"],
       escape : "\\",
       operator : [".", ",", "=", "(", ")", "{", "}", ";", "+", "-", "<", ">",
@@ -25,8 +26,7 @@
     return dest;
   };
 
-  var ltReg = /</g,
-      validKeywordReg = /[@a-zA-Z\-_]/;
+  var ltReg = /</g;
 
   var replaceEntities = function(s) {
     return s.replace(ltReg, "&lt;");
@@ -141,7 +141,7 @@
       }
 
       // Keyword?
-      if (validKeywordReg.test(c)) {
+      if (this.lang.validKeywordReg.test(c)) {
         keywordChars.push(c);
         continue;
       } else if (keywordChars.length > 0) {
@@ -168,10 +168,9 @@
   };
 
   Highlighter.prototype.highlight = function() {
-    var oldLines = this.el.textContent.split("\n"),
-        newLines = [];
-    oldLines.forEach(function(oldLine) {
-      newLines.push(this.handleLine(oldLine));
+    var oldLines = this.el.textContent.split("\n");
+    var newLines = oldLines.map(function(oldLine) {
+      return this.handleLine(oldLine);
     }, this);
     this.el.className += " simplefasthighlighted";
     this.el.innerHTML = newLines.join("\n");
