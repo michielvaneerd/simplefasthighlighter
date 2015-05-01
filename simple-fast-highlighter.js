@@ -140,6 +140,26 @@
         commentChars = [];
       }
 
+      // Custom? (regexp in Javascript for example)
+      // Always regexp, so from current position into line
+      if (this.lang.custom) {
+        var toContinue = false;
+        Object.keys(this.lang.custom).forEach(function(key) {
+          var reg = this.lang.custom[key];
+          var match = reg.exec(line.substr(i));
+          if (match && match.index === 0 && (commentChars.length === 0 || commentChars[0] === match[0].charAt(0))) {
+            newLine.push("<span class='sfh" + key + "'>" + replaceEntities(match[0]) + "</span>");
+            endIndex = i + match[0].length - 1;
+            i = endIndex;
+            toContinue = true;
+            return;
+          }
+        }, this);
+        if (toContinue) {
+          continue;
+        }
+      }
+      
       // Keyword?
       if (this.lang.validKeywordReg.test(c)) {
         keywordChars.push(c);

@@ -100,7 +100,11 @@ var simpleCopy = function(src, dest) {
 };
 
 var replaceEntities = function(s) {
+  if (/\d+/.test(s) &amp;&amp; /\w+/gi.test(s)) {
+    console.log(&quot;Found it!&quot;);
+  }
   return s.replace(/&lt;/g, &quot;&amp;amp;lt;&quot;);
+  return s.replace(/hoi[\w]+/g, &quot;-&quot;);
 };</pre>
 
                 <h3>Java</h3>

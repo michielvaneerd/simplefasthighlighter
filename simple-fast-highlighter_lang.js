@@ -56,7 +56,10 @@
     escape : Language.defaults.escape,
     validKeywordReg : Language.defaults.validKeywordReg,
     keyword : ["Array", "ArrayBuffer", "Boolean", "break", "case", "catch", "class", "const", "continue", "DataView", "Date", "delete", "do", "else", "Error", "extends", "false", "Float32Array", "Float64Array", "for", "Function", "function", "if", "in", "Infinity", "Int8Array", "Int16Array", "Int32Array", "let", "Map", "Math", "NaN", "new", "null", "Number", "Object", "of", "Promise", "Proxy", "RegExp", "return", "Set", "static", "String", "switch", "Symbol", "this", "throw", "true", "try", "Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array", "undefined", "var", "yield", "WeakMap", "WeakSet", "while"],
-    operator : global.Highlighter.copyShallow(Language.defaults.operator, [])
+    operator : global.Highlighter.copyShallow(Language.defaults.operator, []),
+    custom : {
+      regexp : /^\/[^/]+\/[gim]*/
+    }
   };
 
   Language.python = {
